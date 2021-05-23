@@ -1,4 +1,4 @@
-//Tank Drive
+//Double driver field centric for the blue alliance
 
 package org.firstinspires.ftc.teamcode;
 
@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp(name = "Double Driver blue", group = "Taus")
 //@Config
-
+//hi
 public class TeleopBlue extends LinearOpMode {
 
     public AutonomousMethods method = new AutonomousMethods();
@@ -47,6 +47,7 @@ public class TeleopBlue extends LinearOpMode {
     double scale = 1;
 
     @Override
+    //run file
     public void runOpMode() {
 
 
@@ -117,6 +118,7 @@ public class TeleopBlue extends LinearOpMode {
         method.setAllMotorsTo(0);
     }
 
+    //drive base movement
     public void drive(){
         method.runWithEncoders();
         if (gamepad1.right_stick_button&&!leftStick){
@@ -203,6 +205,7 @@ public class TeleopBlue extends LinearOpMode {
 
     }
 
+    //shooting
     public void shooter(){
         if(gamepad2.x && !isXPressed){
             isXPressed = true;
@@ -241,39 +244,14 @@ public class TeleopBlue extends LinearOpMode {
             dpadPressed = false;
         }
     }
-//    public void shoot(){
-//        if(gamepad2.right_trigger>.1) {
-//            method.currentXPosition = 48;
-//            method.currentYPosition = 84;
-//            telemetry.addLine(method.magic8());
-//            telemetry.update();
-//            method.setAllMotorsTo(0);
-//            if(firstShot){
-//                method.toAngle(method.shootingAngle, 1);
-//                firstShot=false;
-//            }
-//            else {
-//                method.controlBlocker(0);
-//                method.shoot(method.shootingAngle, method.shooterPower);
-//                rings=0;
-//            }
-//            method.controlBlocker(1);
-//        }
-//    }
-    public void updateShootingParameters(){
-        double curveAngle = (startingAngle+incrementAngle*(84-(method.currentYPosition+9)));
-        method.shootingAngle = Math.toDegrees(Math.atan((36-method.currentXPosition)/(144-(method.currentYPosition+9))))+curveAngle;
-        method.shooterRpm = (startingRpm+incrementRpm*(84-(method.currentYPosition+9)));
-        method.shooterPower = (method.shooterRpm*28)/60.0;
-        method.setShooterPower(method.shooterPower);
-    }
-
     public void toAngle(){
         if(gamepad2.left_bumper){
             method.currentXPosition = 12;
             method.currentYPosition = 72;
-            method.shootingAngle = 0;
-            method.shooterRpm = 2190;
+            method.shootingAngle = 2;
+            method.shooterRpm = 2135;
+            method.shooterPower = (method.shooterRpm*28)/60.0;
+            method.setShooterPower(method.shooterPower);
             //updateShootingParameters();
             method.toAngle(method.shootingAngle, 1);
             shooting = true;
@@ -282,7 +260,9 @@ public class TeleopBlue extends LinearOpMode {
             method.currentXPosition = 36;
             method.currentYPosition = 72;
             method.shootingAngle = -15;
-            method.shooterRpm = 2190;
+            method.shooterRpm = 2135;
+            method.shooterPower = (method.shooterRpm*28)/60.0;
+            method.setShooterPower(method.shooterPower);
             //updateShootingParameters();
             method.toAngle(method.shootingAngle, 1);
             shooting = true;
@@ -291,7 +271,9 @@ public class TeleopBlue extends LinearOpMode {
             method.currentXPosition = 60;
             method.currentYPosition = 72;
             method.shootingAngle = -35;
-            method.shooterRpm = 2190;
+            method.shooterRpm = 2135;
+            method.shooterPower = (method.shooterRpm*28)/60.0;
+            method.setShooterPower(method.shooterPower);
             //updateShootingParameters();
             method.toAngle(method.shootingAngle, 1);
             shooting = true;
@@ -306,7 +288,7 @@ public class TeleopBlue extends LinearOpMode {
             method.toAngle(method.shootingAngle, 1);
             shooting = true;
         }
-        if (shooting&&!gamepad1.left_stick_button&&!(rings==0)){
+        if (shooting&&!(Math.abs(gamepad1.right_stick_x)>.1)&&!(gamepad1.right_trigger>.1)&&!(gamepad1.left_trigger>.1)){
             if(Math.abs(method.getHeading()-method.shootingAngle)>4) {
                 method.toAngle(method.shootingAngle, 1);
             }
@@ -327,24 +309,31 @@ public class TeleopBlue extends LinearOpMode {
             method.toAngle(-15, .5);
             method.shootRings(1);
             method.setShooterPower(method.shooterPower);
-            rings--;
+            if (rings>0) {
+                rings -= 1;
+            }
         }
         if(gamepad2.dpad_up){
             method.setShooterPower(method.powerShotPower);
             method.toAngle(-11, .5);
             method.shootRings(1);
             method.setShooterPower(method.shooterPower);
-            rings--;
+            if (rings>0) {
+                rings -= 1;
+            }
         }
         if(gamepad2.dpad_right){
             method.setShooterPower(method.powerShotPower);
             method.toAngle(-6, .5);
             method.shootRings(1);
             method.setShooterPower(method.shooterPower);
-            rings--;
+            if (rings>0) {
+                rings -= 1;
+            }
         }
     }
 
+    //subsystems and utilities
     public void indexer(){
         if(gamepad2.a && !isAPressed){
             isAPressed = true;
@@ -379,20 +368,25 @@ public class TeleopBlue extends LinearOpMode {
     }
     public void intake(){
         method.robot.intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (Math.abs(gamepad2.left_stick_y)>.05) {
+            //method.setIntakePower(-gamepad2.left_stick_y);
+            method.setIntakePower(-gamepad2.left_stick_y);
+            intakingRing=-gamepad2.left_stick_y>.05;
+        }
         if (Math.abs(gamepad2.left_stick_y)>.05&&rings<3||gamepad2.left_stick_button) {
             //method.setIntakePower(-gamepad2.left_stick_y);
             method.setIntakePower(-gamepad2.left_stick_y);
             intakingRing=-gamepad2.left_stick_y>.05;
         }
         else if(Math.abs(gamepad2.left_stick_y)>.05&&rings>2){
-            method.setIntakePower(.1*-gamepad2.left_stick_y);
+            method.setIntakePower(.5*-gamepad2.left_stick_y);
         }
         else{
             method.setIntakePower(0);
         }
     }
     public void claw(){
-        if((gamepad2.b && !isBPressed)||(method.runtime3.seconds()>87&&method.runtime3.seconds()<90)){
+        if((gamepad2.b && !isBPressed)){//||(method.runtime3.seconds()>87&&method.runtime3.seconds()<90)
             isBPressed = true;
             if (!clawClosed) {
                 method.controlClawServo(.25);//closing claw
@@ -427,13 +421,29 @@ public class TeleopBlue extends LinearOpMode {
             }
         }
     }
-
+    public void ringIn(){
+        if(!RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)<5){
+            RingIn = true;
+            intakingInitially = intakingRing;
+        }
+        if(RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)>5){
+            RingIn= false;
+            if(intakingRing&&intakingInitially) {
+                rings++;
+            }
+            else if(!intakingRing&&!intakingInitially){
+                rings--;
+            }
+        }
+    }
     public void resetAngle() {
         if (gamepad1.right_bumper) {
             method.resetAngle = method.getHeading() + method.resetAngle;
             method.resetAngle2 = method.getHeading2() +method.resetAngle2;
         }
     }
+
+    //not in use
     public void goToPosition(){
         if(gamepad1.left_trigger>.1){
             method.goToPosition(0, method.currentXPosition, method.currentYPosition, 36, 72);
@@ -599,24 +609,32 @@ public class TeleopBlue extends LinearOpMode {
             }
         }
     }
-
-
-    public void ringIn(){
-        if(!RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)<5){
-            RingIn = true;
-            intakingInitially = intakingRing;
-        }
-        if(RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)>5){
-            RingIn= false;
-            if(intakingRing&&intakingInitially) {
-                rings++;
+    public void shoot(){
+        if(gamepad2.right_trigger>.1) {
+            method.currentXPosition = 48;
+            method.currentYPosition = 84;
+            telemetry.addLine(method.magic8());
+            telemetry.update();
+            method.setAllMotorsTo(0);
+            if(firstShot){
+                method.toAngle(method.shootingAngle, 1);
+                firstShot=false;
             }
-            else if(!intakingRing&&!intakingInitially){
-                rings--;
+            else {
+                method.controlBlocker(0);
+                method.shoot(method.shootingAngle, method.shooterPower);
+                rings=0;
             }
+            method.controlBlocker(1);
         }
     }
-
+    public void updateShootingParameters(){
+        double curveAngle = (startingAngle+incrementAngle*(84-(method.currentYPosition+9)));
+        method.shootingAngle = Math.toDegrees(Math.atan((36-method.currentXPosition)/(144-(method.currentYPosition+9))))+curveAngle;
+        method.shooterRpm = (startingRpm+incrementRpm*(84-(method.currentYPosition+9)));
+        method.shooterPower = (method.shooterRpm*28)/60.0;
+        method.setShooterPower(method.shooterPower);
+    }
     public void shootingAutomatically(){
         if (rings==3&&method.runtime3.seconds()<95&&method.currentYPosition<84){
             method.shoot(method.shootingAngle, method.shooterPower);

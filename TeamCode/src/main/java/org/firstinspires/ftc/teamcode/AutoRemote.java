@@ -1,5 +1,4 @@
-
-//Run code for the left blue position
+//original code from remote meets
 
 package org.firstinspires.ftc.teamcode;
 

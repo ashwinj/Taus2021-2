@@ -3,11 +3,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Disabled
-@Autonomous(name = "BlueRight", group = "Taus")
-public class BlueRight extends AutonomousMethods {
+//@Disabled
+@Autonomous(name = "BlueRight2", group = "Taus")
+public class BlueRight2 extends AutonomousMethods {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,10 +34,10 @@ public class BlueRight extends AutonomousMethods {
         switch (numberOfRings){
             case 0:
                 //code
-                forward(.5, 2, 14);//16
-                shoot(-26, (2135*28)/60.0);
+                forward(.5, 2, 10);//16
+                shoot(-26, (2150*28)/60.0);
                 toAngle(0, 1);
-                forward(.5, 0, 22);//20
+                forward(.5, 0, 26);//20
                 strafeLeft(.3, 0, 23);
                 dropWobbleGoal();
                 strafeRight(.5, 1, 4);
@@ -46,10 +45,10 @@ public class BlueRight extends AutonomousMethods {
                 break;
             case 1:
                 //code
-                forward(.5, 2, 14);//16
-                shoot(-26, (2135*28)/60.0);
+                forward(.5, 2, 10);//16
+                shoot(-26, (2150*28)/60.0);
                 toAngle(0, 1);
-                forward(.5, 1, 22);//20
+                forward(.5, 1, 26);//20
                 toAngle(-15,1);
                 dropWobbleGoal();
                 toAngle(0,1);
@@ -60,42 +59,46 @@ public class BlueRight extends AutonomousMethods {
                 backward(.5, 0, 11);
                 forward(.5, 0, 11);
                 toAngle(0, 1);
-                forward(.5, 0, 23);
-                shoot(-26, (2135*28)/60.0);
+                forward(.5, 0, 20);
+                shoot(-26, (2150*28)/60.0);
                 toAngle(0, 1);
                 forward(.5, 0, 12);
                 break;
             case 4:
                 //code
-                forward(.5, 2, 14);//16
-                shoot(-26, (2135*28)/60.0);
+                forward(.5, 1, 16);
+                strafeRight(.5, 0, 3);
+                shoot(-26, (2250*28)/60.0);
+                toAngle(90, 1);
+                setIntakePower(1);
+                backward(.5, 0, 8);//12
+                setIntakePower(-.3);
+                forward(.5, 0, 2);
+                setIntakePower(1);
+                backward(.5, 0, 4);
+                setIntakePower(-.3);
+                forward(.5, 0, 2);
+                setIntakePower(1);
+                backward(.5, 0, 4);
+                forward(.5, 0, 12);//6
+                shoot(-32.0, (2250*28)/60.0);
+                toAngle(90, 1);
+                setIntakePower(1);
+                backward(.5, 0, 16);
+                setIntakePower(-1);
+                setIntakePower(1);
+                forward(.5, 0, 8);//17
                 toAngle(0, 1);
-                forward(.5, 2, 10);//8
+                forward(.5, 0, 23);
+                shoot(-26, (2150*28)/60.0);
+                toAngle(0, 1);
+                forward(.5, 2, 10);
                 strafeLeft(.5, 0, 23);
                 toAngle(45, 1);
                 dropWobbleGoal();
-                strafeRight(.5, 1, 11);
+                strafeRight(.5, 1, 23);
                 toAngle(0, 1);
-                backward(.5, 2, 7);
-                toAngle(90, 1);
-                backward(.5, 0, 6);
-                setIntakePower(1);
-                backward(.5, 0, 2);
-                forward(.5, 0, 1);
-                backward(.5, 0, 2);
-                forward(.5, 0, 1);
-                backward(.5, 0, 2);
-                forward(.5, 0, 6);
-                shoot(-35.0, (2360.3*28)/60.0);
-                setIntakePower(1);
-                toAngle(90, 1);
-                backward(.5, 0, 8);
-                forward(.5, 0, 11);
-                toAngle(0, 1);
-                forward(.5, 0, 23);
-                shoot(-26, (2135*28)/60.0);
-                toAngle(0, 1);
-                forward(.5, 0, 12);
+                backward(.5, 0, 12);
                 break;
         }
 

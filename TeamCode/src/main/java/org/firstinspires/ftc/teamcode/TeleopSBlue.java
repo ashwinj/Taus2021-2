@@ -1,4 +1,4 @@
-//Tank Drive
+//Single driver field centric for the blur alliance
 
 package org.firstinspires.ftc.teamcode;
 
@@ -47,6 +47,7 @@ public class TeleopSBlue extends LinearOpMode {
     double scale = 1;
 
     @Override
+    //run file
     public void runOpMode() {
 
 
@@ -117,6 +118,7 @@ public class TeleopSBlue extends LinearOpMode {
         method.setAllMotorsTo(0);
     }
 
+    //drive base movement
     public void drive(){
         method.runWithEncoders();
         if (gamepad1.right_stick_button&&!leftStick){
@@ -203,6 +205,7 @@ public class TeleopSBlue extends LinearOpMode {
 
     }
 
+    //shooting
     public void shooter(){
         if(gamepad1.x && !isXPressed){
             isXPressed = true;
@@ -240,13 +243,6 @@ public class TeleopSBlue extends LinearOpMode {
         //if(!gamepad1.dpad_up && !gamepad2.dpad_down && !gamepad2.dpad_right){
         //    dpadPressed = false;
         //}
-    }
-    public void updateShootingParameters(){
-        double curveAngle = (startingAngle+incrementAngle*(84-(method.currentYPosition+9)));
-        method.shootingAngle = Math.toDegrees(Math.atan((36-method.currentXPosition)/(144-(method.currentYPosition+9))))+curveAngle;
-        method.shooterRpm = (startingRpm+incrementRpm*(84-(method.currentYPosition+9)));
-        method.shooterPower = (method.shooterRpm*28)/60.0;
-        method.setShooterPower(method.shooterPower);
     }
     public void toAngle(){
         if(gamepad1.left_bumper){
@@ -325,6 +321,7 @@ public class TeleopSBlue extends LinearOpMode {
         }
     }
 
+    //subsystems and utilities
     public void indexer(){
         if(gamepad1.a && !isAPressed){
             isAPressed = true;
@@ -364,16 +361,16 @@ public class TeleopSBlue extends LinearOpMode {
             method.setIntakePower(-1);
             intakingRing=false;
         }
-        if (gamepad1.right_trigger>.05&&rings<3) {
+        else if (gamepad1.right_trigger>.05&&rings<3) {
             //method.setIntakePower(-gamepad2.left_stick_y);
             method.setIntakePower(1);
             intakingRing=true;
         }
         else if(gamepad1.right_trigger>.05&&rings>2){
-            method.setIntakePower(.1);
+            method.setIntakePower(.5);
         }
         else if(gamepad1.left_trigger>.05&&rings>2){
-            method.setIntakePower(-.1);
+            method.setIntakePower(-.5);
         }
         else{
             method.setIntakePower(0);
@@ -415,12 +412,35 @@ public class TeleopSBlue extends LinearOpMode {
             }
         }
     }
-
+    public void ringIn(){
+        if(!RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)<5){
+            RingIn = true;
+            intakingInitially = intakingRing;
+        }
+        if(RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)>5){
+            RingIn= false;
+            if(intakingRing&&intakingInitially) {
+                rings++;
+            }
+            else if(!intakingRing&&!intakingInitially){
+                rings--;
+            }
+        }
+    }
     public void resetAngle() {
         if (gamepad1.y) {
             method.resetAngle = method.getHeading() + method.resetAngle;
             method.resetAngle2 = method.getHeading2() +method.resetAngle2;
         }
+    }
+
+    //not in use
+    public void updateShootingParameters(){
+        double curveAngle = (startingAngle+incrementAngle*(84-(method.currentYPosition+9)));
+        method.shootingAngle = Math.toDegrees(Math.atan((36-method.currentXPosition)/(144-(method.currentYPosition+9))))+curveAngle;
+        method.shooterRpm = (startingRpm+incrementRpm*(84-(method.currentYPosition+9)));
+        method.shooterPower = (method.shooterRpm*28)/60.0;
+        method.setShooterPower(method.shooterPower);
     }
     public void goToPosition(){
         if(gamepad1.left_trigger>.1){
@@ -587,24 +607,6 @@ public class TeleopSBlue extends LinearOpMode {
             }
         }
     }
-
-
-    public void ringIn(){
-        if(!RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)<5){
-            RingIn = true;
-            intakingInitially = intakingRing;
-        }
-        if(RingIn&&method.robot.distance.getDistance(DistanceUnit.CM)>5){
-            RingIn= false;
-            if(intakingRing&&intakingInitially) {
-                rings++;
-            }
-            else if(!intakingRing&&!intakingInitially){
-                rings--;
-            }
-        }
-    }
-
     public void shootingAutomatically(){
         if (rings==3&&method.runtime3.seconds()<95&&method.currentYPosition<84){
             method.shoot(method.shootingAngle, method.shooterPower);

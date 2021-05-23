@@ -4,8 +4,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "RedLeftMax", group = "Taus")
 public class RedLeftMax extends AutonomousMethods {
 

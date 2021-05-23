@@ -3,11 +3,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-@Disabled
-@Autonomous(name = "RedLeft", group = "Taus")
-public class RedLeft extends AutonomousMethods {
+//@Disabled
+@Autonomous(name = "RedLeft2", group = "Taus")
+public class RedLeft2 extends AutonomousMethods {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,9 +34,9 @@ public class RedLeft extends AutonomousMethods {
         switch (numberOfRings){
             case 0:
                 //code
-                forward(.5, 2, 14);//16
-                shoot(0, (2135*28)/60.0);
-                forward(.5, 0, 14);//12
+                forward(.5, 2, 10);//16
+                shoot(0, (2150*28)/60.0);
+                forward(.5, 0, 18);//12
                 strafeRight(.5, 1, 0);
                 toAngle(180, 1);
                 dropWobbleGoal();
@@ -46,10 +45,10 @@ public class RedLeft extends AutonomousMethods {
                 break;
             case 1:
                 //code
-                forward(.5, 2, 14);//16
-                shoot(0, (2135*28)/60.0);
-                toAngle(2, 1);
-                forward(.5, 1, 17);//15
+                forward(.5, 2, 10);//16
+                shoot(0, (2150*28)/60.0);
+                toAngle(0, 1);
+                forward(.5, 1, 21);//15
                 toAngle(-150, 1);
                 dropWobbleGoal();
                 strafeRight(.5, 0, 3);
@@ -59,43 +58,46 @@ public class RedLeft extends AutonomousMethods {
                 setIntakePower(1);
                 backward(.5, 0, 12);
                 forward(.5, 0, 12);
-                toAngle(360, 1);
-                forward(.5, 0, 23);
-                shoot(2, (2135*28)/60.0);
+                toAngle(0, 1);
+                forward(.5, 0, 20);
+                shoot(2, (2150*28)/60.0);
                 toAngle(0, 1);
                 forward(.5, 0, 12);
                 break;
             case 4:
                 //code
-                forward(.5, 2, 14);//16
-                shoot(0, (2135*28)/60.0);
-                toAngle(0, 1);
-                forward(.5, 2, 10);//8
-                strafeRight(.5, 1, 0);
-                toAngle(165, 1);
-                dropWobbleGoal();
-                strafeRight(.5, 1, 4);
-                toAngle(180, 1);
-                forward(.5, 3, 0);//2
+                forward(.5, 1, 14);
+                strafeLeft(.5, 0, 3);
+                shoot(0, (2250*28)/60.0);
                 toAngle(-90, 1);
                 setIntakePower(1);
-                backward(.5, 0, 16);//10
+                backward(.5, 0, 8);//12
+                setIntakePower(-.3);
                 forward(.5, 0, 2);
-                //backward(.5, 0, 4);
-                //forward(.5, 0, 2);
+                setIntakePower(1);
                 backward(.5, 0, 4);
-                forward(.5, 0, 6);
-                shoot(-6, (2300*28)/60.0);
+                setIntakePower(-.3);
+                forward(.5, 0, 2);
+                setIntakePower(1);
+                backward(.5, 0, 4);
+                forward(.5, 0, 12);//6
+                shoot(-2, (2250*28)/60.0);
                 setIntakePower(1);
                 toAngle(-90, 1);
-                backward(.5, 0, 11);
-                forward(.5, 0, 17);
-                //toAngle(0, 1);
-                shoot(-6, (2300*28)/60.0);//not really
-//                forward(.5, 0, 20);//23
-//                shoot(-5, (2110*28)/60.0);
+                backward(.5, 0, 16);
+                setIntakePower(-1);
+                setIntakePower(1);
+                forward(.5, 0, 8);//17
+                toAngle(0, 1);
+                forward(.5, 0, 23);
+                shoot(0, (2150*28)/60.0);
+                forward(.5, 2, 8);
+                strafeRight(.5, 1, 0);
+                toAngle(155, 1);
+                dropWobbleGoal();
+//                strafeRight(.5, 2, 0);
+//                backward(.5, 1, 0);
 //                toAngle(0, 1);
-//                forward(.5, 0, 12);
                 break;
         }
 

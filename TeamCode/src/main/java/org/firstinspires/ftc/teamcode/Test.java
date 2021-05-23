@@ -14,35 +14,27 @@ public class Test extends AutonomousMethods {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-        //FtcDashboard dashboard = FtcDashboard.getInstance();
-        //Telemetry dashboardTelemetry = dashboard.getTelemetry();
-
-        //dashboardTelemetry.addLine("Starting RunOpMode");
         //initializing robot
         initializeRobot();
         int numRings = findNumRings(bmp);
         bmp.recycle();
-        //controlIndexServo(1);
-        //dashboardTelemetry.addData("rings", numRings);
-        //dashboardTelemetry.update();
+        controlIndexServo(1);
         telemetry.addData("rings", numRings);
         telemetry.update();
         runWithEncoders();
         int a = 0;
         controlIndexServo(.7);
-        forward(.5, 2, 0);
         while (opModeIsActive()){
             //sleep(5000);
             //a++;
             //picture();
             //numRings = findNumRings(bmp);
             //bmp.recycle();
-            //dashboardTelemetry.addData("rings "+a, numRings);
-            //dashboardTelemetry.update();
-}
-
-
+            //forward(.5, 1, 0);
+            //toAngle(180, 1);
+            //forward(.5, 1, 0);
+            //toAngle(0,1);
+        }
     }
 
 }
